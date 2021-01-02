@@ -1,0 +1,4 @@
+1 - Static geometry
+2 - Player
+4 - Hand
+8 - Grabbables
