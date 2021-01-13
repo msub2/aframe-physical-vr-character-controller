@@ -32,21 +32,21 @@ There are currently four components: smooth-locomotion, turn-controls, grabber, 
 
 Allows for smooth locomotion based on left thumbstick axis input.
 
-| Attribute Name | Type  | Default Value | Info                                                      |     |
-| -------------- | ----- | ------------- | --------------------------------------------------------- | --- |
-| speed          | float | 2             | Player movement speed                                     |     |
-| active         | bool  | false         | Whether controller should be used to move                 |     |
-| fly            | bool  | false         | Allows player to move up and down based on look direction |     |
+| Attribute Name | Type  | Default Value | Info                                                      |
+| -------------- | ----- | ------------- | --------------------------------------------------------- |
+| speed          | float | 2             | Player movement speed                                     |
+| active         | bool  | false         | Whether controller should be used to move                 |
+| fly            | bool  | false         | Allows player to move up and down based on look direction |
 
 ### turn-controls
 
 Allows for either smooth turning or snap turning based off the right thunmbstick X-axis input.
 
-| Attribute Name | Type   | Default Value | Info                                                                                                                                                         |     |
-| -------------- | ------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --- |
-| turnType       | string | "none"        | Method of turning. "none" disables the component. "snap" uses snap turning. "smooth" uses smooth turning. Anything else will log an error and act as "none". |     |
-| snapDegrees    | bool   | 45            | Angle in degrees to rotate player on snap                                                                                                                    |     |
-| turnSpeed      | bool   | 2             | Player smooth turning speed                                                                                                                                  |     |
+| Attribute Name | Type   | Default Value | Info                                                                                                                                                         |
+| -------------- | ------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| turnType       | string | "none"        | Method of turning. "none" disables the component. "snap" uses snap turning. "smooth" uses smooth turning. Anything else will log an error and act as "none". |
+| snapDegrees    | bool   | 45            | Angle in degrees to rotate player on snap                                                                                                                    |
+| turnSpeed      | bool   | 2             | Player smooth turning speed                                                                                                                                  |
 
 ### grabber
 

@@ -1,3 +1,8 @@
+const AFRAME = require('aframe');
+const glMatrix = require('gl-matrix');
+require('aframe-physics-system');
+require('aframe-blink-controls');
+
 AFRAME.registerComponent('smooth-locomotion', {
     schema: {
         speed: { type: 'float', default: 2 },
@@ -35,13 +40,14 @@ AFRAME.registerComponent('smooth-locomotion', {
         controllerL.addEventListener('thumbstickup', () => { this.thumbstickPressed = false; });
         this.player.addEventListener('body-loaded', (e) => {
             if (e.detail.body.el.id == "player") {
+                this.btDirection = new Ammo.btVector3();
+                this.btZero = new Ammo.btVector3(0, 0, 0);
+
                 this.body = this.player.body;
                 this.body.setActivationState(4); //DISABLE_DEACTIVATION
                 this.world = AFRAME.scenes[0].systems.physics.driver.physicsWorld
-                this.body.setAngularFactor(new Ammo.btVector3(0, 0, 0));
+                this.body.setAngularFactor(this.btZero);
 
-                this.btDirection = new Ammo.btVector3();
-                this.btZero = new Ammo.btVector3(0, 0, 0);
             }
         });
         this.player.addEventListener('teleported', (e) => {
@@ -121,6 +127,7 @@ AFRAME.registerComponent('turn-controls', {
         this.rotateX = 0;
         this.justSnapped = false;
         this.unsnapZone = .99;
+        this.canSnap = true;
 
         // Set up variables to facilitate position adjustment after turning
         this.preRotHeadPos = new THREE.Vector3();
@@ -146,6 +153,12 @@ AFRAME.registerComponent('turn-controls', {
             this.btPlayerRotation = new Ammo.btQuaternion();
             this.btNewPlayerPos = new Ammo.btVector3();
         });
+        this.player.addEventListener('teleportstarted', () => {
+            this.canSnap = false;
+        });
+        this.player.addEventListener('teleported', () => {
+            this.canSnap = true;
+        })
     },
     tick: function (time, timeDelta) {
         // Do nothing if this controller isn't meant to turn or the turnType is invalid
@@ -153,7 +166,7 @@ AFRAME.registerComponent('turn-controls', {
 
         // Adjust position and turn based on schema        
         if (this.posAdjustNeeded) this.posAdjust();
-        if (this.data.turnType == 'snap') this.snapTurn();
+        if (this.data.turnType == 'snap' && this.canSnap) this.snapTurn();
         if (this.data.turnType == 'smooth') this.smoothTurn(timeDelta / 1000);
 
     },
@@ -167,7 +180,7 @@ AFRAME.registerComponent('turn-controls', {
 
             let q = tempObj.quaternion;
             this.btPlayerRotation.setValue(q.x, q.y, q.z, q.w);
-            this.body.getWorldTransform().setRotation(btPlayerRotation);
+            this.body.getWorldTransform().setRotation(this.btPlayerRotation);
 
             this.justSnapped = true;
             this.posAdjustNeeded = true;
@@ -183,7 +196,7 @@ AFRAME.registerComponent('turn-controls', {
 
             let q = this.player.object3D.quaternion;
             this.btPlayerRotation.setValue(q.x, q.y, q.z, q.w);
-            this.body.getWorldTransform().setRotation(btPlayerRotation);
+            this.body.getWorldTransform().setRotation(this.btPlayerRotation);
 
             this.posAdjustNeeded = true;
         }
@@ -202,7 +215,7 @@ AFRAME.registerComponent('turn-controls', {
             this.newPlayerPos.addVectors(this.player.object3D.position, this.headOffset);
 
             this.btNewPlayerPos.setValue(this.newPlayerPos.x, this.newPlayerPos.y, this.newPlayerPos.z);
-            this.body.getWorldTransform().setOrigin(btNewPlayerPos);
+            this.body.getWorldTransform().setOrigin(this.btNewPlayerPos);
 
             this.posAdjustNeeded = false;
             this.posAdjustDelayed = false;
@@ -279,7 +292,6 @@ AFRAME.registerPrimitive('a-controller', {
         'windows-motion-controls': {},
         'blink-controls': {
             cameraRig: '#player',
-            button: 'trigger',
             teleportOrigin: '#head',
         },
         'ammo-body': {
