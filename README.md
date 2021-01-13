@@ -4,7 +4,7 @@ This is something I developed for my own use so that I could have a ready-made c
 
 It wraps the hand-controls, vive-controls, oculus-touch-controls, and windows-motion-controls components into an `<a-controller>` primitive, and makes use of glMatrix, aframe-blink-controls, and aframe-physics-system.
 
-It's still early in development, and likely to undergo many changes.
+It's still early in development, and likely to undergo many changes. It's also currently broken please don't use thanks
 
 ## Usage
 
