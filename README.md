@@ -1,11 +1,18 @@
 # A-Frame Physical VR Character Controller
 
 This is something I developed for my own use so that I could have a ready-made character controller with smooth locomotion, teleporting, snap turning, smooth turning, and basic physical interactions.
+
 It wraps the hand-controls, vive-controls, oculus-touch-controls, and windows-motion-controls components into an `<a-controller>` primitive, and makes use of glMatrix, aframe-blink-controls, and aframe-physics-system.
+
 It's still early in development, and likely to undergo many changes.
-I'll eventually try to clean it up more and bundle it using webpack, but for now you'll need the `<script>`s present in index.html.
 
 ## Usage
+
+While I work out making this ready to put on npm, you can add the following `<script>` tags:
+```
+<script src="https://mixedreality.mozilla.org/ammo.js/builds/ammo.wasm.js"></script>
+<script src="https://raw.githubusercontent.com/msub2/aframe-physical-vr-character-controller/main/dist/aframe-physical-vr-character-controller.min.js"></script>
+```
 
 To use the character controller, just copy the following HTML code into your `<a-scene>`:
 
