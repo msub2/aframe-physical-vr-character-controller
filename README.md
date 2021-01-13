@@ -11,7 +11,7 @@ It's still early in development, and likely to undergo many changes.
 While I work out making this ready to put on npm, you can add the following `<script>` tags:
 ```
 <script src="https://mixedreality.mozilla.org/ammo.js/builds/ammo.wasm.js"></script>
-<script src="https://raw.githubusercontent.com/msub2/aframe-physical-vr-character-controller/main/dist/aframe-physical-vr-character-controller.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/msub2/aframe-physical-vr-character-controller/dist/aframe-physical-vr-character-controller.min.js"></script>
 ```
 
 To use the character controller, just copy the following HTML code into your `<a-scene>`:
