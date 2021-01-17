@@ -6,7 +6,9 @@
   <title>Physical VR Character Controller Example Scene</title>
   <meta name="description" content="Example Scene">
   <script src="https://mixedreality.mozilla.org/ammo.js/builds/ammo.wasm.js"></script>
-  <script src="/dist/bundle.js"></script>
+  <!--<script src="/dist/bundle.js"></script>-->
+  <script
+    src="https://cdn.jsdelivr.net/gh/msub2/aframe-physical-vr-character-controller/dist/aframe-physical-vr-character-controller.min.js"></script>
 </head>
 
 <body>
@@ -19,7 +21,8 @@
       ammo-shape="type: capsule; fit: manual; halfExtents: .15 0 .15">
       <a-entity id="head" camera wasd-controls look-controls></a-entity>
       <a-controller id="controllerL" hand="left" move="true"></a-controller>
-      <a-controller id="controllerR" hand="right" turn-type="snap"></a-controller>
+      <a-controller id="controllerR" hand="right" turn-type="snap"
+        blink-controls="cameraRig: #player; teleportOrigin: #head"></a-controller>
     </a-entity>
     <a-box id="testcube" position="0 1 -2" color="#FF00FF"
       ammo-body="type: static; collisionFilterGroup: 1; collisionFilterMask: 11" ammo-shape="type: box"></a-box>
